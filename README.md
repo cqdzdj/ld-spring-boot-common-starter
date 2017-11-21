@@ -1,1 +1,0 @@
-# ld-spring-boot-common-starter
