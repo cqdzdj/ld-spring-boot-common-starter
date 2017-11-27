@@ -8,7 +8,9 @@ import java.io.OutputStream;
 import java.util.Random;
 
 /**
- * 验证码工具类
+ * @description: 验证码工具类
+ * @author: duanjian
+ * @date: 17-11-27 下午2:05
  */
 public class CaptchaUtils {
 	/** 图片的宽度 */

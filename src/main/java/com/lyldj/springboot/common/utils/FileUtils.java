@@ -3,7 +3,7 @@ package com.lyldj.springboot.common.utils;
 /**
  * @author: duanjian
  * @date: 17-11-21 下午4:55
- * @description:
+ * @description: 文件操作工具类
  */
 public class FileUtils {
 
@@ -30,5 +30,18 @@ public class FileUtils {
             file = filePath.substring(filePath.lastIndexOf("/") + 1);
         }
         return file;
+    }
+
+    /**
+     * 获取文件扩展名
+     * @param filePath 文件路径
+     * @return
+     */
+    public static String getExtension(String filePath) {
+        String extend = "";
+        if (StringUtils.isNotBlank(filePath)) {
+            extend = filePath.substring(filePath.lastIndexOf(".") + 1);
+        }
+        return extend;
     }
 }
