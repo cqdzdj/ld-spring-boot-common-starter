@@ -1,15 +1,17 @@
 package com.lyldj.springboot.common.utils;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.poi.hssf.usermodel.*;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
-import org.apache.poi.xssf.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * @author: duanjian
@@ -140,7 +142,6 @@ public class PoiUtils {
     private boolean printMsg = PRINT_MSG;
 
     public PoiUtils() {
-
     }
 
     public PoiUtils(String excelPath) {
@@ -299,7 +300,6 @@ public class PoiUtils {
         }
         InputStream inputStream = null;
         try {
-            // 判断文件是否存在
             inputStream = getInputStream(excelPath, distXlsPath);
             HSSFWorkbook wb = new HSSFWorkbook(inputStream);
             // 将rowList的内容写到Excel中
@@ -368,6 +368,7 @@ public class PoiUtils {
 
     private InputStream getInputStream(String excelPath, String distXlsxPath) throws FileNotFoundException {
         File file = new File(distXlsxPath);
+        // 判断文件是否存在
         if (file.exists()) {
             // 如果复写，则删除后
             if (isOverWrite) {
@@ -431,7 +432,7 @@ public class PoiUtils {
 
     /***
      * 读取Excel(97-03版，xls格式)
-     * @throws Exception
+     * @throws IOException
      */
     public List<Row> readExcelXls(String xlsPath) throws IOException {
 
@@ -441,7 +442,7 @@ public class PoiUtils {
             throw new IOException("文件名为" + file.getName() + "Excel文件不存在！");
         }
 
-        List<Row> rowList = new ArrayList<Row>();
+        List<Row> rowList = new ArrayList<>();
         FileInputStream fis = null;
         try {
             fis = new FileInputStream(file);
@@ -578,7 +579,7 @@ public class PoiUtils {
             }
 
             //用于设定单元格样式
-            CellStyle newstyle = wb.createCellStyle();
+            CellStyle newStyle = wb.createCellStyle();
 
             //循环为新行创建单元格
             for (int i = row.getFirstCellNum(); i < row.getLastCellNum(); i++) {
@@ -588,8 +589,10 @@ public class PoiUtils {
                 if (row.getCell(i) == null) {
                     continue;
                 }
-                copyCellStyle(row.getCell(i).getCellStyle(), newstyle); // 获取原来的单元格样式
-                cell.setCellStyle(newstyle);// 设置样式
+                // 获取原来的单元格样式
+                copyCellStyle(row.getCell(i).getCellStyle(), newStyle);
+                // 设置样式
+                cell.setCellStyle(newStyle);
                 // sheet.autoSizeColumn(i);//自动跳转列宽度
             }
         }
@@ -686,18 +689,21 @@ public class PoiUtils {
             // 获取合并单元格位置  
             CellRangeAddress ca = sheet.getMergedRegion(i);
             int firstRow = ca.getFirstRow();
-            if (startReadPos - 1 > firstRow) {// 如果第一个合并单元格格式在正式数据的上面，则跳过。  
+            // 如果第一个合并单元格格式在正式数据的上面，则跳过。
+            if (startReadPos - 1 > firstRow) {
                 continue;
             }
             int lastRow = ca.getLastRow();
-            int mergeRows = lastRow - firstRow;// 合并的行数  
+            // 合并的行数
+            int mergeRows = lastRow - firstRow;
             int firstColumn = ca.getFirstColumn();
             int lastColumn = ca.getLastColumn();
             // 根据合并的单元格位置和大小，调整所有的数据行格式，  
             for (int j = lastRow + 1; j <= sheet.getLastRowNum(); j++) {
                 // 设定合并单元格  
                 sheet.addMergedRegion(new CellRangeAddress(j, j + mergeRows, firstColumn, lastColumn));
-                j = j + mergeRows;// 跳过已合并的行  
+                // 跳过已合并的行
+                j = j + mergeRows;
             }
 
         }

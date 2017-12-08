@@ -6,6 +6,7 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.lang.reflect.Method;
 
 /**
  * @author: duanjian
@@ -27,5 +28,9 @@ public @interface ExcelExport {
     int order() default 0;
 
     boolean highlight() default false;
+
+    Class<? extends Parser> parser() default DefaultParser.class;
+
+    String pattern() default "";
 
 }
