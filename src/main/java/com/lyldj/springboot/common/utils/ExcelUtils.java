@@ -82,10 +82,7 @@ public class ExcelUtils {
                 cell.setCellStyle(style);
                 cell.setCellValue(getValue(field, data));
             }
-
         }
-
-
     }
     
     private static <T> String getValue(Field field, T data) {
@@ -100,6 +97,7 @@ public class ExcelUtils {
                 if(StringUtils.isBlank(pattern)) {
                     pattern = DEFAULT_DATE_PATTERN;
                 }
+                return DateUtils.format((Date) data, pattern);
             }
             Class<? extends Parser> clazz = excelExport.parser();
             return clazz.newInstance().parse(data);

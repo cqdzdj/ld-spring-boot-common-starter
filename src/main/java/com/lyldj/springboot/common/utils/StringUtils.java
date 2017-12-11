@@ -68,7 +68,7 @@ public class StringUtils extends org.apache.commons.lang.StringUtils {
     public static String getSerialNo(String prefix, int randomLength) {
         StringBuilder builder = new StringBuilder();
         builder.append(nullToEmpty(prefix))
-                .append(new DateTime().toString(DateUtils.SHORT_DATE_TIME_MILLISECOND_NO_PATTERN))
+                .append(new DateTime().toString(DateUtils.SHORT_DATE_TIME_MILLI_NO_PATTERN))
                 .append(randomLength > 0 ? getRandomNumberString(randomLength) : "");
         return builder.toString();
     }

@@ -1,4 +1,4 @@
-package com.lyldj.springboot.common.enums;
+package com.lyldj.springboot.common.exception;
 
 import org.springframework.http.HttpStatus;
 
@@ -13,27 +13,27 @@ public enum ExceptionType {
     /**
      * base 400 exception
      */
-    BAD_BASE(HttpStatus.BAD_REQUEST, 0, "Incomplete request"),
+    BAD_REQUEEST_BASE(HttpStatus.BAD_REQUEST, 0, "Incomplete request"),
     /**
      * parameter exception
      */
-    BAD_PARAM(HttpStatus.BAD_REQUEST, 1, "请求参数不正确"),
+    BAD_REQUEEST_PARAM(HttpStatus.BAD_REQUEST, 1, "请求参数不正确"),
     /**
      * parameter expired exception
      */
-    BAD_EXPIRED(HttpStatus.BAD_REQUEST, 2, "请求参数失效"),
+    BAD_REQUEEST_EXPIRED(HttpStatus.BAD_REQUEST, 2, "请求参数失效"),
     /**
      * captcha exception
      */
-    BAD_CAPTCHA(HttpStatus.BAD_REQUEST, 3, "验证码不正确"),
+    BAD_REQUEEST_CAPTCHA(HttpStatus.BAD_REQUEST, 3, "验证码不正确"),
     /**
      * captcha expired exception
      */
-    BAD_CAPTCHA_EXPIRED(HttpStatus.BAD_REQUEST, 4, "验证码失效"),
+    BAD_REQUEEST_CAPTCHA_EXPIRED(HttpStatus.BAD_REQUEST, 4, "验证码失效"),
     /**
      * other 400 exception
      */
-    BAD_OTHER(HttpStatus.BAD_REQUEST, 99, "无效请求"),
+    BAD_REQUEEST_OTHER(HttpStatus.BAD_REQUEST, 99, "无效请求"),
 
     // 401 exception
     /**
