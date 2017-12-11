@@ -5,6 +5,8 @@ import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.app.VelocityEngine;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.Properties;
@@ -13,7 +15,7 @@ import java.util.Properties;
  * Velocity工具类:根据模板生成目标文件
  */
 public class VelocityUtils {
-
+	private static final Logger LOGGER = LoggerFactory.getLogger(VelocityUtils.class);
 	/**
 	 * 根据模板生成文件
 	 * @param inputVmFilePath 模板路径
@@ -31,7 +33,7 @@ public class VelocityUtils {
 			template.merge(context, writer);
 			writer.close();
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			LOGGER.error("generate file from velocity templates occurs an error!", ex);
 		}
 	}
 

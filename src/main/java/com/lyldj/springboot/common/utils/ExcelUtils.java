@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Field;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -37,6 +38,8 @@ public class ExcelUtils {
      * 默认的开始读取的行位置为第一行（索引值为0）
      */
     private static final int START_ROW = 0;
+
+    private static final String DEFAULT_DATE_PATTERN = DateUtils.DATE_TIME_PATTERN;
 
     public static <T extends Exportable> void export(String excelPath, T data) {
 
@@ -91,6 +94,12 @@ public class ExcelUtils {
             Object propertyValue = field.get(data);
             if(Objects.isNull(propertyValue)) {
                 return StringUtils.isBlank(excelExport.nullValue()) ? "" : excelExport.nullValue();
+            }
+            if(data instanceof Date) {
+                String pattern = excelExport.pattern();
+                if(StringUtils.isBlank(pattern)) {
+                    pattern = DEFAULT_DATE_PATTERN;
+                }
             }
             Class<? extends Parser> clazz = excelExport.parser();
             return clazz.newInstance().parse(data);

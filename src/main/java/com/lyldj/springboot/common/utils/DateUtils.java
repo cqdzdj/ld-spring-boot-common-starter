@@ -7,4 +7,5 @@ package com.lyldj.springboot.common.utils;
  */
 public class DateUtils {
     public static final String SHORT_DATE_TIME_MILLISECOND_NO_PATTERN = "yyMMddHHmmssSSS";
+    public static final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
 }
